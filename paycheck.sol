@@ -12,7 +12,7 @@ contract owned {
 contract PayCheck is owned {
 
     uint public expiration = now + 1 weeks;
-    uint public value = 10000000000000000000;
+    uint public value = 10 ** 18;
 
     function changeOwner(address _newOwner) onlyowner  {
         owner = _newOwner;
