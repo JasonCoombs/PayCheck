@@ -1,12 +1,18 @@
 contract owned {
     function owned() {
         owner = msg.sender;
+        staff = msg.sender;
     }
     modifier onlyowner() {
         if (msg.sender != owner) throw;
             _
     }
+    modifier onlystaff() {
+        if (msg.sender != staff) throw;
+            _
+    }
     address public owner;
+    address public staff;
 }
 
 contract PayCheck is owned {
@@ -17,13 +23,17 @@ contract PayCheck is owned {
     function changeOwner(address _newOwner) onlyowner  {
         owner = _newOwner;
     }
+    function changeStaff(address _newStaff) onlyowner  {
+        staff = _newStaff;
+    }
 
-    function Redeem() onlyowner {
+    function Redeem() onlystaff {
         if (block.timestamp > expiration) {
 
-        msg.sender.send(value);
+        msg.staff.send(value);
         expiration = now + 1 weeks;
 
         }
     }
 }
+
