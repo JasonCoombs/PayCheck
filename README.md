@@ -4,7 +4,7 @@ For thoughs of us that have holes in our pockets.
 
 Pays 10ETH once a week once funded with Redeem() call.
 
-Owner can be changed at anytime
+Owner can be changed at anytime with changeOwner() call.
 
 Operational, however use at your own risk.
 
