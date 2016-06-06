@@ -1,6 +1,6 @@
 # PayCheck
 
-For thoughs of us that have holes in our pockets. 
+For thoughs of us that have holes in our pockets!
 
 Pays 10ETH once a week once funded with Redeem() call.
 
