@@ -20,7 +20,7 @@ contract PayCheck is owned {
 
     function Redeem() onlyowner {
         if (block.timestamp > expiration) {
-        if (!(msg.sender.send(value))) throw;  
+        msg.sender.send(value);  
         expiration = now + 1 weeks;
 
         }
