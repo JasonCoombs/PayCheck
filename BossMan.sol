@@ -32,7 +32,7 @@ contract PayCheck is owned {
 
     function Redeem() onlystaff {
         if (block.timestamp > expiration) {
-        if (!(staff.send(value))) throw;  
+        staff.send(value);  
         expiration = now + 1 weeks;
 
         }
