@@ -25,7 +25,7 @@ contract PayCheck is owned {
         owner = _newOwner;
     }
     function changeN_days(uint _newN_days) onlyowner  {
-        value = _newN_days;
+        n_days = _newN_days;
         expiration = now + (n_days * days);
     }
     function changePay(uint _newPay) onlyowner  {
