@@ -23,7 +23,7 @@ contract PayCheck is owned {
     function changeOwner(address _newOwner) onlyowner  {
         owner = _newOwner;
     }
-    function changePay(address _newPay) onlyowner  {
+    function changePay(unit _newPay) onlyowner  {
         value = _newPay;
     }
     function changeStaff(address _newStaff) onlyowner  {
