@@ -19,11 +19,16 @@ contract PayCheck is owned {
 
     uint public expiration = now + 1 weeks;
     uint public value = 10 ** 18;
+    uint public n_days = 1;
 
     function changeOwner(address _newOwner) onlyowner  {
         owner = _newOwner;
     }
-    function changePay(unit _newPay) onlyowner  {
+    function changeN_days(uint _newN_days) onlyowner  {
+        value = _newN_days;
+        expiration = now + n_days;
+    }
+    function changePay(uint _newPay) onlyowner  {
         value = _newPay;
     }
     function changeStaff(address _newStaff) onlyowner  {
@@ -33,11 +38,8 @@ contract PayCheck is owned {
     function Redeem() onlystaff {
         if (block.timestamp > expiration) {
         staff.send(value);  
-        expiration = now + 1 weeks;
+        expiration = now + n_days;
 
         }
     }
 }
-
-
-
