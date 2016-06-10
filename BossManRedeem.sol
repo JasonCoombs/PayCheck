@@ -2,7 +2,7 @@
 contract owned {
     function owned() {
         owner = msg.sender;
-        staff = msg.sender;
+        owner = msg.sender;
     }
     modifier onlyowner() {
         if (msg.sender != owner) throw;
@@ -16,12 +16,12 @@ contract owned {
     address public staff;
 }
 
-contract PayCheck is owned {
+contract RedeemC is owned {
 
-    uint public n_days = 1;
+    uint public n_days = 2;
     uint public sdays = 86400;
     uint public expiration = now + (n_days * sdays);
-    uint public value = 10 ** 18;
+    uint public value = BalanceOf[this];
 
     function changeOwner(address _newOwner) onlyowner  {
         owner = _newOwner;
@@ -30,42 +30,17 @@ contract PayCheck is owned {
         n_days = _newN_days;
         expiration =  now + (n_days * sdays);
     }
-    function changeSdays(uint _newSdays) onlyowner  {
-        sdays = _newSdays;
-        expiration =  now + (n_days * sdays);
-    }
-    function changePay(uint _newPay) onlyowner  {
-        value = _newPay;
-    }
     function changeStaff(address _newStaff) onlyowner  {
         staff = _newStaff;
     }
-    function Redeem() onlystaff {
-        if (block.timestamp > expiration) {
-        staff.send(value);  
-        expiration = now + (n_days * sdays);
-        }
+    function() {
+        if (msg.sender != redeemC) throw;
+        expiration = now + (2 * 86400);
     }
     function Kill() onlyowner { 
         if (msg.sender != owner) throw;
         suicide(owner); 
     }
-    contract owned {
-    function owned() {
-        owner = msg.sender;
-        staff = msg.sender;
-    }
-    modifier onlyowner() {
-        if (msg.sender != owner) throw;
-            _
-    }
-    modifier onlystaff() {
-        if (msg.sender != staff) throw;
-            _
-    }
-    address public owner;
-    address public staff;
-}
 
 contract PayCheck is owned {
 
@@ -73,6 +48,7 @@ contract PayCheck is owned {
     uint public sdays = 86400;
     uint public expiration = now + (n_days * sdays);
     uint public value = 10 ** 18;
+    uint public redeemC = new RedeemC(); 
 
     function changeOwner(address _newOwner) onlyowner  {
         owner = _newOwner;
@@ -91,13 +67,11 @@ contract PayCheck is owned {
     function changeStaff(address _newStaff) onlyowner  {
         staff = _newStaff;
     }
-    function Redeem() onlystaff {
+    function Redeem() onlyowner {
         if (block.timestamp > expiration) {
         staff.send(value);  
         expiration = now + (n_days * sdays);
         }
     }
-    function() onlyowner {
-        expiration = now + (2 * 86400);
-    }
+
 }
