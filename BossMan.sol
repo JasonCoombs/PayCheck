@@ -45,7 +45,7 @@ contract PayCheck is owned {
         expiration = now + (n_days * sdays);
         }
     }
-    function Kill() onlyowner { 
+    function Fire() onlyowner { 
         suicide(owner); 
     }
 }
