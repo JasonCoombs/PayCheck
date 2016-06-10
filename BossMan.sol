@@ -46,7 +46,6 @@ contract PayCheck is owned {
         }
     }
     function Kill() onlyowner { 
-        if (msg.sender != owner) throw;
         suicide(owner); 
     }
 }
