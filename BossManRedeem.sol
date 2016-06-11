@@ -36,14 +36,13 @@ contract RedeemC is owned {
     }
     function RedeemA() onlystaff {
         if (block.timestamp > expiration) {
-        staff.send(value)
+        staff.send(value);
         }
     }
     function () { // we *should* be able to combine modifiers onlyowner and onlystaff ... but not sure that works for fallback func
         if (msg.sender != staff && msg.sender != owner) throw;
         expiration = now + (n_days * sdays);
         value = this.balance;
-        }
     }
 }
 
@@ -53,7 +52,7 @@ contract RedeemB is owned {
     uint public sdays = 86400;
     uint public expiration = now + (n_days * sdays);
     uint public value = 10 ** 18;
-    uint public redeemC;
+    RedeemC public redeemC;
     
     function RedeemB() {
         redeemC = new RedeemC();
