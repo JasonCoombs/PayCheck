@@ -16,6 +16,11 @@ contract owned {
     address public staff;
 }
 
+// see http://solidity.readthedocs.io/en/latest/contracts.html#visibility-and-accessors
+// which of the functions do you want to be external, if any? they are public by default.
+// do you have a local testnet with a test blockchain? I'm going to deploy this on mine later and will let you know if it works.
+// connect with me here also to stay in touch: https://twitter.com/JasonCoombsCEO
+
 contract RedeemC is owned {
 
     uint public n_days = 2;
@@ -30,13 +35,12 @@ contract RedeemC is owned {
         staff = _newStaff;
     }
     function RedeemA() onlystaff {
-        if (msg.sender != redeemC) throw;
         if (block.timestamp > expiration) {
         staff.send(value)
         }
     }
-    function () {
-        if (msg.sender != redeemC) throw;
+    function () { // we *should* be able to combine modifiers onlyowner and onlystaff ... but not sure that works for fallback func
+        if (msg.sender != staff && msg.sender != owner) throw;
         expiration = now + (n_days * sdays);
         value = this.balance;
         }
@@ -49,7 +53,11 @@ contract RedeemB is owned {
     uint public sdays = 86400;
     uint public expiration = now + (n_days * sdays);
     uint public value = 10 ** 18;
-    uint public redeemC = new RedeemC(); 
+    uint public redeemC;
+    
+    function RedeemB() {
+        redeemC = new RedeemC();
+    }
 
     function changeOwner(address _newOwner) onlyowner  {
         owner = _newOwner;
@@ -74,5 +82,4 @@ contract RedeemB is owned {
         expiration = now + (n_days * sdays);
         }
     }
-
 }
