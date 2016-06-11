@@ -21,26 +21,19 @@ contract RedeemC is owned {
     uint public n_days = 2;
     uint public sdays = 86400;
     uint public expiration = now + (n_days * sdays);
-    uint public value = BalanceOf[this];
+    uint public value = this.balance;
 
     function changeOwner(address _newOwner) onlyowner  {
         owner = _newOwner;
-    }
-    function changeN_days(uint _newN_days) onlyowner  {
-        n_days = _newN_days;
-        expiration =  now + (n_days * sdays);
     }
     function changeStaff(address _newStaff) onlyowner  {
         staff = _newStaff;
     }
     function() {
         if (msg.sender != redeemC) throw;
-        expiration = now + (2 * 86400);
+        staff.send(this.balance)
     }
-    function Kill() onlyowner { 
-        if (msg.sender != owner) throw;
-        suicide(owner); 
-    }
+}
 
 contract PayCheck is owned {
 
