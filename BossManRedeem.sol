@@ -2,7 +2,7 @@
 contract owned {
     function owned() {
         owner = msg.sender;
-        owner = msg.sender;
+        staff = msg.sender;
     }
     modifier onlyowner() {
         if (msg.sender != owner) throw;
