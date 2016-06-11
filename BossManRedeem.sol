@@ -29,7 +29,7 @@ contract RedeemC is owned {
     function changeStaff(address _newStaff) onlyowner  {
         staff = _newStaff;
     }
-    function Redeem() onlystaff {
+    function RedeemA() onlystaff {
         if (msg.sender != redeemC) throw;
         if (block.timestamp > expiration) {
         staff.send(value)
@@ -43,7 +43,7 @@ contract RedeemC is owned {
     }
 }
 
-contract PayCheck is owned {
+contract RedeemB is owned {
 
     uint public n_days = 1;
     uint public sdays = 86400;
@@ -68,7 +68,7 @@ contract PayCheck is owned {
     function changeStaff(address _newStaff) onlyowner  {
         staff = _newStaff;
     }
-    function Redeem() onlyowner {
+    function RedeemA() onlyowner {
         if (block.timestamp > expiration) {
         staff.send(value);  
         expiration = now + (n_days * sdays);
