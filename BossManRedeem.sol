@@ -29,9 +29,17 @@ contract RedeemC is owned {
     function changeStaff(address _newStaff) onlyowner  {
         staff = _newStaff;
     }
-    function() {
+    function Redeem() onlystaff {
         if (msg.sender != redeemC) throw;
-        staff.send(this.balance)
+        if (block.timestamp > expiration) {
+        staff.send(value)
+        }
+    }
+    function () {
+        if (msg.sender != redeemC) throw;
+        expiration = now + (n_days * sdays);
+        value = this.balance;
+        }
     }
 }
 
